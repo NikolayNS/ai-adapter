@@ -1,0 +1,34 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: ai-adapter
+
+integration:
+  http:
+    open-ai:
+      base-url: https://api.openai.com/
+      assistant: v1/assistants
+      chat-url: v1/chat/completions
+      speech-to-text: v1/audio/transcriptions
+      text-to-speech: v1/audio/speech
+      api-key: 1
+      models:
+        assistant: gpt-4-turbo
+        text-to-speech: whisper-1
+        speech-to-text: tts-1
+    telegram:
+      bot:
+        username: Pythagoras_math_bot
+        token: 1
+        url: https://2d02-2603-8080-e5f0-94d0-89ec-fcb8-8a56-588c.ngrok-free.app
+        path: /update
+    retry:
+      max-attempts: 3
+      duration: 20
+
+logging:
+  pattern:
+    console: "%clr(%-5level) %d{yyy-MM-dd HH:mm:ss.SS} [%thread] %clr([%logger{0}.%M]){cyan} requestId:[%X{requestId}] %m%wEx%n"
+    file: "[%-5level] %d{yyy-MM-dd HH:mm:ss.SS} [%thread] [%-26logger{26}] requestId:[%X{requestId}] %m%wEx%n"
