@@ -46,7 +46,8 @@ public class TelegramBotHandler extends SpringWebhookBot {
     @SneakyThrows
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        log.info("Received update: {}", update);
+		log.info("Received update");
+        log.trace("Received update: {}", update);
         var message = update.getMessage();
         if (update.hasMessage()) {
             if (message.hasText()) {
@@ -64,7 +65,7 @@ public class TelegramBotHandler extends SpringWebhookBot {
             }
         }
 
-        log.info("update: {}", update);
+        log.trace("update: {}", update);
         return null;
     }
 

@@ -1,5 +1,6 @@
 package com.dmitrenko.aiadapter.mapper;
 
+import com.dmitrenko.aiadapter.model.FunctionEnum;
 import com.dmitrenko.aiadapter.model.dto.openai.MessageRoleEnum;
 import com.dmitrenko.aiadapter.model.dto.openai.VoiceEnum;
 import com.dmitrenko.aiadapter.model.dto.openai.request.*;
@@ -7,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class OpenAIMapper {
@@ -17,11 +15,19 @@ public class OpenAIMapper {
     public ChatRequest toChatReq(String model, String message) {
         var list = new LinkedList<ChatRequestTool>();
 
+	    var testAction = new ChatRequestTool();
+	    testAction
+			    .setType("function")
+			    .setFunction(new ChatRequestToolFunction()
+					    .setName(FunctionEnum.TEST_ACTION.getValue())
+					    .setDescription("Perform a test action"));
+	    list.add(testAction);
+
         var switchLamp = new ChatRequestTool();
         switchLamp
                 .setType("function")
                 .setFunction(new ChatRequestToolFunction()
-                        .setName("switchLamp")
+                        .setName(FunctionEnum.SWITCH_LAMP.getValue())
                         .setDescription("Switching lamps throughout the house, by lamp number.")
                         .setParameters(new FunctionParameters()
                                 .setType("object")
@@ -36,7 +42,7 @@ public class OpenAIMapper {
         switchSocket
                 .setType("function")
                 .setFunction(new ChatRequestToolFunction()
-                        .setName("switchSocket")
+                        .setName(FunctionEnum.SWITCH_SOCKET.getValue())
                         .setDescription("Switching socket throughout the house, by socket number.")
                         .setParameters(new FunctionParameters()
                                 .setType("object")
@@ -51,7 +57,7 @@ public class OpenAIMapper {
         setACTemperature
                 .setType("function")
                 .setFunction(new ChatRequestToolFunction()
-                        .setName("setACTemperature")
+                        .setName(FunctionEnum.SET_AC_TEMPERATURE.getValue())
                         .setDescription("Set AC temperature by action and number")
                         .setParameters(new FunctionParameters()
                                 .setType("object")

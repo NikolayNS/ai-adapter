@@ -3,6 +3,7 @@ package com.dmitrenko.aiadapter.service.impl;
 import com.dmitrenko.aiadapter.exception.EnumValueNotFoundException;
 import com.dmitrenko.aiadapter.integration.http.client.OpenAIClient;
 import com.dmitrenko.aiadapter.mapper.OpenAIMapper;
+import com.dmitrenko.aiadapter.model.FunctionEnum;
 import com.dmitrenko.aiadapter.service.OpenAIService;
 import com.dmitrenko.aiadapter.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +39,11 @@ public class OpenAIServiceImpl implements OpenAIService {
 
         actionAnswer.getToolCalls().forEach(o -> {
             var function = o.getFunction();
-            switch (function.getName()) {
-                case "switchLamp" -> taskService.switchLamp(function.getArguments());
-                case "switchSocket" -> taskService.switchSocket(function.getArguments());
-                case "setACTemperature" -> taskService.setACTemperature(function.getArguments());
+            switch (FunctionEnum.fromValue(function.getName())) {
+	            case FunctionEnum.TEST_ACTION -> taskService.testAction();
+	            case FunctionEnum.SWITCH_LAMP -> taskService.switchLamp(function.getArguments());
+	            case FunctionEnum.SWITCH_SOCKET -> taskService.switchSocket(function.getArguments());
+	            case FunctionEnum.SET_AC_TEMPERATURE -> taskService.setACTemperature(function.getArguments());
                 default -> throw new EnumValueNotFoundException("Action not found");
             }
         });
