@@ -13,16 +13,16 @@ integration:
       chat-url: v1/chat/completions
       speech-to-text: v1/audio/transcriptions
       text-to-speech: v1/audio/speech
-      api-key: sk-proj-EZvRsLnpoIoKVudJr2HLT3BlbkFJ41TR6fFm8eExYsNK4VMJ
+      api-key: 1
       models:
         assistant: gpt-4-turbo
         text-to-speech: whisper-1
         speech-to-text: tts-1
     telegram:
       bot:
-        username: crearec_smart_home_bot
-        token: 6787363414:AAFRh4qKNNXBmi00Lw9WOQId0kemrRn9_VQ
-        url: https://supreme-neutral-corgi.ngrok-free.app
+        username: Pythagoras_math_bot
+        token: 1
+        url: https://2d02-2603-8080-e5f0-94d0-89ec-fcb8-8a56-588c.ngrok-free.app
         path: /update
     retry:
       max-attempts: 3
@@ -36,4 +36,4 @@ logging:
     file: "[%-5level] %d{yyy-MM-dd HH:mm:ss.SS} [%thread] [%-26logger{26}] requestId:[%X{requestId}] %m%wEx%n"
   level:
     com:
-      dmitrenko: debug
+      dmitrenko: trace
