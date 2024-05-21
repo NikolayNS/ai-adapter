@@ -22,6 +22,6 @@ public enum FunctionEnum {
         return Arrays.stream(FunctionEnum.values())
                 .filter(o -> o.value.equals(value))
                 .findFirst()
-                .orElseThrow(() -> new EnumValueNotFoundException(String.format("Unexpected MessageRole value %s", value)));
+                .orElseThrow(() -> new EnumValueNotFoundException(String.format("Unexpected FunctionEnum value %s", value)));
     }
 }

@@ -40,10 +40,10 @@ public class OpenAIServiceImpl implements OpenAIService {
         actionAnswer.getToolCalls().forEach(o -> {
             var function = o.getFunction();
             switch (FunctionEnum.fromValue(function.getName())) {
-	            case FunctionEnum.TEST_ACTION -> taskService.testAction();
-	            case FunctionEnum.SWITCH_LAMP -> taskService.switchLamp(function.getArguments());
-	            case FunctionEnum.SWITCH_SOCKET -> taskService.switchSocket(function.getArguments());
-	            case FunctionEnum.SET_AC_TEMPERATURE -> taskService.setACTemperature(function.getArguments());
+	            case TEST_ACTION -> taskService.testAction();
+	            case SWITCH_LAMP -> taskService.switchLamp(function.getArguments());
+	            case SWITCH_SOCKET -> taskService.switchSocket(function.getArguments());
+	            case SET_AC_TEMPERATURE -> taskService.setACTemperature(function.getArguments());
                 default -> throw new EnumValueNotFoundException("Action not found");
             }
         });

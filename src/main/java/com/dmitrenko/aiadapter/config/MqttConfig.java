@@ -11,9 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @Log4j2
 @Configuration
 public class MqttConfig {
-	@Value("${integration.mqtt.url}")
-	private String url;
+
     private static final String CLIENT_ID = "clientId";
+
+    @Value("${integration.mqtt.url}")
+	private String url;
 
     @Bean
     public MqttClient mqttClient() {

@@ -4,6 +4,23 @@ server:
 spring:
   application:
     name: ai-adapter
+  flyway:
+    schemas: public
+    validate-on-migrate: false
+    baseline-on-migrate: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  datasource:
+    username: postgres
+    password: 123
+    url: jdbc:postgresql://localhost:5432/ai-adapter-db
+    driver-class-name: org.postgresql.Driver
+    maximumPoolSize: 10
+    minimumIdle: 5
+    idleTimeout: 10000
 
 integration:
   http:
@@ -36,4 +53,4 @@ logging:
     file: "[%-5level] %d{yyy-MM-dd HH:mm:ss.SS} [%thread] [%-26logger{26}] requestId:[%X{requestId}] %m%wEx%n"
   level:
     com:
-      dmitrenko: trace
+      dmitrenko: debug

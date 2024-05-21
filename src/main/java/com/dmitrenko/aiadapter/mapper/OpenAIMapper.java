@@ -1,13 +1,15 @@
 package com.dmitrenko.aiadapter.mapper;
 
-import com.dmitrenko.aiadapter.model.FunctionEnum;
-import com.dmitrenko.aiadapter.model.dto.openai.MessageRoleEnum;
-import com.dmitrenko.aiadapter.model.dto.openai.VoiceEnum;
 import com.dmitrenko.aiadapter.model.dto.openai.request.*;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.dmitrenko.aiadapter.model.FunctionEnum.*;
+import static com.dmitrenko.aiadapter.model.dto.openai.MessageRoleEnum.SYSTEM;
+import static com.dmitrenko.aiadapter.model.dto.openai.MessageRoleEnum.USER;
+import static com.dmitrenko.aiadapter.model.dto.openai.VoiceEnum.NOVA;
 
 @Service
 public class OpenAIMapper {
@@ -19,7 +21,7 @@ public class OpenAIMapper {
 	    testAction
 			    .setType("function")
 			    .setFunction(new ChatRequestToolFunction()
-					    .setName(FunctionEnum.TEST_ACTION.getValue())
+					    .setName(TEST_ACTION.getValue())
 					    .setDescription("Perform a test action"));
 	    list.add(testAction);
 
@@ -27,7 +29,7 @@ public class OpenAIMapper {
         switchLamp
                 .setType("function")
                 .setFunction(new ChatRequestToolFunction()
-                        .setName(FunctionEnum.SWITCH_LAMP.getValue())
+                        .setName(SWITCH_LAMP.getValue())
                         .setDescription("Switching lamps throughout the house, by lamp number.")
                         .setParameters(new FunctionParameters()
                                 .setType("object")
@@ -42,7 +44,7 @@ public class OpenAIMapper {
         switchSocket
                 .setType("function")
                 .setFunction(new ChatRequestToolFunction()
-                        .setName(FunctionEnum.SWITCH_SOCKET.getValue())
+                        .setName(SWITCH_SOCKET.getValue())
                         .setDescription("Switching socket throughout the house, by socket number.")
                         .setParameters(new FunctionParameters()
                                 .setType("object")
@@ -57,7 +59,7 @@ public class OpenAIMapper {
         setACTemperature
                 .setType("function")
                 .setFunction(new ChatRequestToolFunction()
-                        .setName(FunctionEnum.SET_AC_TEMPERATURE.getValue())
+                        .setName(SET_AC_TEMPERATURE.getValue())
                         .setDescription("Set AC temperature by action and number")
                         .setParameters(new FunctionParameters()
                                 .setType("object")
@@ -73,13 +75,13 @@ public class OpenAIMapper {
                 .setModel(model)
                 .setMessages(List.of(
                         new ChatRequestMessage()
-                                .setRole(MessageRoleEnum.SYSTEM.getValue())
+                                .setRole(SYSTEM.getValue())
                                 .setContent("You are a smart home manager. " +
                                         "Your responsibilities include communicating with the resident of the house and managing their devices, such as sockets, lamps, air conditioning, and so on. " +
                                         "Speak the language in which you are spoken to. " +
                                         "After turning on any device from your parameters, answer the user that you turned it on."),
                         new ChatRequestMessage()
-                                .setRole(MessageRoleEnum.USER.getValue())
+                                .setRole(USER.getValue())
                                 .setContent(message)))
                 .setTools(list);
     }
@@ -88,6 +90,6 @@ public class OpenAIMapper {
         return new TextToSpeechRequest()
                 .setModel(model)
                 .setInput(message)
-                .setVoice(VoiceEnum.NOVA.getValue());
+                .setVoice(NOVA.getValue());
     }
 }
